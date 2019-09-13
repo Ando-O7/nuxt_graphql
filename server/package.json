@@ -1,0 +1,16 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "graphpack": "^1.0.9"
+  },
+  "scripts": {
+    "dev": "graphpack",
+    "build": "graphpack build"
+  },
+  "author": "",
+  "license": "ISC"
+}
