@@ -1,7 +1,10 @@
+import { users } from './db';
+
 const resolvers = {
   Query: {
-    hello: () => 'world!',
+    // one search
+    user: (parent, { id }, context, info) => users.find(user => user.id == id),
+    // multiple search
+    users: (parent, args, context, info) => users
   },
 };
-
-export default resolvers;
