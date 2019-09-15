@@ -9,3 +9,25 @@ type User {
     email: String!
     age: Int
 }
+
+type Mutation {
+    # insert
+    createUser (
+        name: String!,
+        email: String!,
+        age: Int
+    ): User!
+
+    # update
+    updateUser(
+        id: ID!,
+        name: String!,
+        email: String!,
+        age: Int
+    ): User!
+
+    # delete
+    deleteUser(
+        id: ID!
+    ): User!
+}
