@@ -8,3 +8,5 @@ const resolvers = {
     users: (parent, args, context, info) => users
   },
 };
+
+export default resolvers;
