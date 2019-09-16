@@ -12,3 +12,8 @@ export let users = [
         age: 55
     },
 ];
+
+// Numbering ID(numbering from 3)
+let idSequence = 2;
+// Numbering process
+export const generateId = () => ++idSequence;
