@@ -1,4 +1,15 @@
+// Subscriptionのやりとりにはapollo-serverのPubSubを使う
+// graphpackの場合、apollo-serverは入っている
+import { PubSub } from 'apollo-server';
 import { users, generateId } from './db';
+
+const pubsub = new PubSub();
+
+const EVENT = {
+  USER_CREATED: 'userCreated',
+  USER_UPDATED: 'userUpdated',
+  USER_DELETED: 'userDeleted',
+};
 
 const resolvers = {
   Query: {
@@ -11,6 +22,8 @@ const resolvers = {
     createUser: (parent, { name, email, age }, context, info) => {
       const newUser = { id: generateId(), name, email, age};
       users.push(newUser);
+
+      pubsub.publish(EVENT.USER_CREATED, {[EVENT.USER_CREATED]: newUser});
       return newUser;
     },
     updateUser: (parent, { id, name, email, age }, context, info) => {
@@ -19,16 +32,29 @@ const resolvers = {
       updatedUser.email = email;
       updatedUser.age = age;
 
-      pubsub.publish(EVEN.USER_UPDATED, {[EVENT.USER_UPDATED]: updatedUser});
+      pubsub.publish(EVENT.USER_UPDATED, {[EVENT.USER_UPDATED]: updatedUser});
       return updatedUser;
     },
     deleteUser: (parent, {id}, context, info) => {
       const userIndex = users.findIndex(user => user.id == id);
       if (userIndex === -1) throw new Error('User not found');
       const [deletedUser] = users.splice(userIndex, 1);
+
+      pubsub.publish(EVENT.USER_DELETED, {[EVENT.USER_DELETED]: deleteUser});
       return deletedUser;
     }
   },
+  Subscription: {
+    [EVENT.USER_CREATED]: {
+      subscribe: () => pubsub.asyncIterator([EVENT.USER_CREATED])
+    },
+    [EVENT.USER_UPDATED]: {
+      subscribe: () => pubsub.asyncIterator([EVENT.USER_UPDATED])
+    },
+    [EVENT.USER_DELETED]: {
+      subscribe: () => pubsub.asyncIterator([EVENT.USER_DELETED])
+    },
+  }
 };
 
 export default resolvers;
