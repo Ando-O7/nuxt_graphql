@@ -14,17 +14,19 @@ const resolvers = {
       return newUser;
     },
     updateUser: (parent, { id, name, email, age }, context, info) => {
-      const updateUser = users.find(user => user.id == id);
-      updateUser.name = name;
-      updateUser.email = email;
-      updateUser.age = age;
-      return updateUser;
+      const updatedUser = users.find(user => user.id == id);
+      updatedUser.name = name;
+      updatedUser.email = email;
+      updatedUser.age = age;
+
+      pubsub.publish(EVEN.USER_UPDATED, {[EVENT.USER_UPDATED]: updatedUser});
+      return updatedUser;
     },
     deleteUser: (parent, {id}, context, info) => {
       const userIndex = users.findIndex(user => user.id == id);
       if (userIndex === -1) throw new Error('User not found');
-      const [deleteUser] = users.splice(userIndex, 1);
-      return deleteUser;
+      const [deletedUser] = users.splice(userIndex, 1);
+      return deletedUser;
     }
   },
 };
