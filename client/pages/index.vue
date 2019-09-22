@@ -52,6 +52,9 @@
 
 <script>
   import getUsersGql from '~/apollo/queries/getUsers.gql'
+  import createUserGql from '~/apollo/mutations/createUser.gql'
+  import updateUserGql from '~/apollo/mutations/updateUser.gql'
+  import deleteUserGql from '~/apollo/mutations/deleteUser.gql'
 
   export default {
     date() {
@@ -96,6 +99,37 @@
     apollo: {
       users: {
         query: getUsersGql
+      }
+    },
+
+    methods: {
+      // insert process
+      async createItem({
+        name,
+        email,
+        age
+      }) {
+        // when issuing a mutation, not Smart Query. use $apollo.
+        const { error } = await this.$apollo.mutate({
+          mutation: createUserGql,
+          variables: {
+            name,
+            email,
+            age
+          },
+          // RefetchQueries can specify the operation of GraphQL issued after processing is completed.
+          // Here, after registration, data is re-acquired to refresh the user list.
+          refetchQueries: [{
+            query: getUsersGql
+          }]
+        })
+
+        if (error) {
+          // error process
+        }
+
+        // no show edit area
+        this.close();
       }
     }
   }
