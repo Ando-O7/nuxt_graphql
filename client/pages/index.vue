@@ -26,6 +26,27 @@
           </td>
         </tr>
       </table>
+
+      <div v-if="isShowEditArea">
+        <h2>{{ fromTitle }}</h2>
+        <div>
+          <input v-model="editedItem.name" type="text" placeholder="名前">
+        </div>
+        <div>
+          <input v-model="editedItemd.email" type="text" placeholder="メール">
+        </div>
+        <div>
+          <input v-model="editedItem.age" type="number" placeholder="年齢">
+        </div>
+        <div>
+          <button @click="close">
+            キャンセル
+          </button>
+          <button @click="save">
+            保存
+          </button>
+        </div>
+      </div>
   </div>
 </template>
 
