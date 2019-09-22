@@ -90,7 +90,7 @@
     // depending on the value of EditorialIndex, it is judged whether it is updated or registered
     computed: {
       formTitle() {
-        return this.editedIndex === -1
+        return this.editedIndex === -1;
           ? 'ユーザー新規登録'
           : 'ユーザー更新'
       }
