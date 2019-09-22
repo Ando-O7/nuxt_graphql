@@ -56,7 +56,30 @@
   export default {
     date() {
       return {
-        users: []
+        users: [],
+        // flag of insert or update editarea show
+        isShowEditArea: false,
+
+        // argment of insert and update flag 
+        // case -1 insert, case other update
+        editedIndex: -1,
+
+        // model for edit area
+        editedItem: {
+          id: null,
+          name: null,
+          email: null,
+          age: null
+        },
+
+        // init model for edit area
+        // at initialization used like "this.editedItem = Object.asigne({}, this.defaultEditedItem)"
+        defaultEditedItem: {
+          id: null,
+          name: null,
+          email: null,
+          age: null
+        }
       }
     },
     apollo: {
