@@ -130,6 +130,33 @@
 
         // no show edit area
         this.close();
+      },
+
+      // update process
+      async updateItem({
+        id,
+        name,
+        email,
+        age
+      }) {
+        const { error } = await this.$apollo.mutate({
+          mutation: updateUsrGql,
+          variables: {
+            id,
+            name,
+            email,
+            age
+          },
+          refetchQueries: [{
+            query: getUserGql
+          }]
+        })
+
+        if (error) {
+          // error process
+        }
+
+        this.close();
       }
     }
   }
