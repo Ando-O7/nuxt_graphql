@@ -157,6 +157,27 @@
         }
 
         this.close();
+      },
+
+      // delete process
+      async deleteItem(item) {
+        if (!confirm(`ユーザー(${item.name})を削除しますか？`)) {
+          return
+        }
+        
+        const { error } = await this.$apollo.mutate({
+          mutation: deleteUserGql,
+          variables: {
+            id: item.id
+          },
+          refetchQueries: [{
+            query: getUsersGql
+          }]
+        })
+
+        if (error) {
+          // error process
+        }
       }
     }
   }
