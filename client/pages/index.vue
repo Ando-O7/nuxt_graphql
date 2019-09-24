@@ -178,6 +178,13 @@
         if (error) {
           // error process
         }
+      },
+
+      // edit button push process
+      editItem(item) {
+        this.editedIndex = this.users.indexOf(item);
+        this.editItem = Object.assign({}, item);
+        this.isShowEditArea = true;
       }
     }
   }
