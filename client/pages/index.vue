@@ -185,6 +185,15 @@
         this.editedIndex = this.users.indexOf(item);
         this.editItem = Object.assign({}, item);
         this.isShowEditArea = true;
+      },
+
+      // edit area no show process
+      close() {
+        this.isShowEditArea = false;
+        setTimeout(() => {
+          this.editedItem = Object.assign({}, this.defaultEditedItem);
+          this.editedIndex = -1;
+        }, 300)
       }
     }
   }
