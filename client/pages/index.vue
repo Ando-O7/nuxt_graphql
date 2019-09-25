@@ -194,7 +194,17 @@
           this.editedItem = Object.assign({}, this.defaultEditedItem);
           this.editedIndex = -1;
         }, 300)
+      },
+
+      // save button push process
+      save() {
+        if (this.editedIndex > -1) {
+          this.updateItem(this.editedItem);
+        } else {
+          this.createItem(this.editedItem);
+        }
       }
+
     }
   }
 </script>
