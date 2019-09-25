@@ -28,12 +28,12 @@
       </table>
 
       <div v-if="isShowEditArea">
-        <h2>{{ fromTitle }}</h2>
+        <h2>{{ formTitle }}</h2>
         <div>
           <input v-model="editedItem.name" type="text" placeholder="名前">
         </div>
         <div>
-          <input v-model="editedItemd.email" type="text" placeholder="メール">
+          <input v-model="editedItem.email" type="text" placeholder="メール">
         </div>
         <div>
           <input v-model="editedItem.age" type="number" placeholder="年齢">
@@ -57,7 +57,7 @@
   import deleteUserGql from '~/apollo/mutations/deleteUser.gql'
 
   export default {
-    date() {
+    data() {
       return {
         users: [],
         // flag of insert or update editarea show
