@@ -55,6 +55,9 @@
   import createUserGql from '~/apollo/mutations/createUser.gql'
   import updateUserGql from '~/apollo/mutations/updateUser.gql'
   import deleteUserGql from '~/apollo/mutations/deleteUser.gql'
+  import userCreatedGql from '~/apollo/subscriptions/userCreated.gql'
+  import userUpdatedGql from '~/apollo/subscriptions/userUpdated.gql'
+  import userDeletedGql from '~/apollo/subscriptions/userDeleted.gql'
 
   export default {
     data() {
