@@ -36,7 +36,7 @@
           <input v-model="editedItem.email" type="text" placeholder="メール">
         </div>
         <div>
-          <input v-model="editedItem.age" type="number" placeholder="年齢">
+          <input v-model="editedItem.age" type="text" placeholder="年齢">
         </div>
         <div>
           <button @click="close">
@@ -101,7 +101,27 @@
 
     apollo: {
       users: {
-        query: getUsersGql
+        query: getUsersGql,
+
+        // Subscription is specified in SubscribeToMore of Smart Query
+        subscribeToMore: [
+          // insert process
+          {
+            document: userCreatedGql,
+            // Define the updateQuery process when Subscription occurs.
+            // The first argument is the previous users
+            // The second argument is the response information from the server.
+            updateQuery: (prev, { subscriptionData }) => {
+              if (!subscriptionData.data) {
+                return prev
+              }
+
+              const newUser = subscriptionData.data.userCreated
+              // this return value into users
+              return prev.users.push(newUser)
+            }
+          }
+        ]
       }
     },
 
