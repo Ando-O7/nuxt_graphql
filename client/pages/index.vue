@@ -120,6 +120,23 @@
               // this return value into users
               return prev.users.push(newUser)
             }
+          },
+
+          // update process
+          {
+            document: userUpdatedGql,
+            updateQuery: (prev, { subscriptionData }) => {
+              if (!subscriptionData.data) {
+                return prev
+              }
+
+              const updatedUser = subscriptionData.data.userUpdatedGql
+              const targetUser = prev.users.find(user => user.id + '' === updatedUser.id + '')
+              targetUser.name = updatedUser.name
+              targetUser.email = updatedUser.email
+              targetUser.age = updatedUser.age
+              return prev.users
+            }
           }
         ]
       }
