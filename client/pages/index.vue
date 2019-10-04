@@ -137,6 +137,24 @@
               targetUser.age = updatedUser.age
               return prev.users
             }
+          },
+
+          // delete process
+          {
+            document: userDeletedGql,
+            updateQuery: (prev, { subscriptionData }) => {
+              if (!subscriptionData.data) {
+                return prev
+              }
+
+              const deletedUser = subscriptionData.data.userDeletedGql
+              const userIndex = prev.users.findIndex(user => user.id + '' === deletedUser.id + '')
+
+              if (userIndex === -1) throw new Error('User not found')
+              
+              prev.users.splice(userIndex, 1)
+              return prev.users
+            }
           }
         ]
       }
