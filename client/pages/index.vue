@@ -174,12 +174,7 @@
             name,
             email,
             age
-          },
-          // RefetchQueries can specify the operation of GraphQL issued after processing is completed.
-          // Here, after registration, data is re-acquired to refresh the user list.
-          refetchQueries: [{
-            query: getUsersGql
-          }]
+          }
         })
 
         if (error) {
@@ -204,10 +199,7 @@
             name,
             email,
             age
-          },
-          refetchQueries: [{
-            query: getUserGql
-          }]
+          }
         })
 
         if (error) {
@@ -227,10 +219,7 @@
           mutation: deleteUserGql,
           variables: {
             id: item.id
-          },
-          refetchQueries: [{
-            query: getUsersGql
-          }]
+          }
         })
 
         if (error) {
