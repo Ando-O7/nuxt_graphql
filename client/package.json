@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc12",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.15.8"
   },
   "devDependencies": {}
 }
